@@ -15,9 +15,9 @@ class CreateCartUserTable extends Migration
     {
         Schema::create('cart_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
