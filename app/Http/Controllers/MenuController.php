@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\MenuRequest;
+use App\Models\Menu;
+use App\Models\Genre;
 
 class MenuController extends Controller
 {
@@ -11,7 +13,12 @@ class MenuController extends Controller
     {
         $menus = Menu::all();
 
-        if(!$menu) {
+        foreach ($menus as $menu) {
+            $genre = Genre::where('id', $menu->genre_id)->first();
+            $menu->genre = $genre->name;
+        }
+
+        if(!$menus) {
             return response()->json(['message' => 'Not found'], 404);
         }
 
@@ -45,7 +52,7 @@ class MenuController extends Controller
             return response ()->json(['message' => 'Menu not found'], 404);
         }
 
-        return repsonse()->json(['menu' => $menu], 200);
+        return response()->json(['menu' => $menu], 200);
     }
 
     public function edit(Request $request)
