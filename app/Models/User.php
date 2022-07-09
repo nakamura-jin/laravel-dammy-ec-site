@@ -24,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     public function carts() {
-        return $this->belongsToMany(Cart::class);
+        return $this->hasOne(Cart::class);
     }
 
     public function role() {
